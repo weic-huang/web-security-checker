@@ -1,0 +1,41 @@
+body{background-color: black;
+text-align:center;}
+
+h1{  
+	height: 2rem;
+	color:orange;
+ 	
+ }
+
+.alert{ 
+	text-align:left;
+	top:1px;
+	width:50%;
+	position:relative;
+	border:1px solid transparent;
+}
+
+.alert-danger{
+	color:#721c24;
+	background-color:#f8d7da;
+	border-color:#f5c6cb}
+
+.alert-dismissible{padding-right:10rem}
+
+div{  margin: 0 auto;} 
+
+input{  width:80%; }
+
+.h1Pos{
+	position:fixed; /*固定位置定位*/
+  	top:30%; 
+  	left:30%;
+}
+
+.inputPos{
+	position:fixed; /*固定位置定位*/
+  	top:40%; 
+ 	left:10%;
+ 	right:10%;
+
+}
