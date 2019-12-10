@@ -9,7 +9,7 @@ class SourceCodeHandlerTest(unittest.TestCase):
 
 	def test_parse(self):
 
-		s = SourceCodeHandler("https://2.python-requests.org//zh_CN/latest/user/quickstart.html")
+		s = SourceCodeHandler("https://www.mobile01.com/topicdetail.php?f=37&t=5886669")
 		s.parse()
 		# self.assertEqual(s, 'FOO')
 

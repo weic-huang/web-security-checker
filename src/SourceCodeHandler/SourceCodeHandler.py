@@ -39,6 +39,8 @@ class SourceCodeHandler():
 
 		self.sourceCode = driver.page_source
 		a = [m.start() for m in re.finditer('function', self.sourceCode)]
+
+		# get all js functions
 		for i in a:
 			now = i
 			flag = 0
