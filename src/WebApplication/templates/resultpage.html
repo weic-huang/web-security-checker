@@ -4,8 +4,9 @@
 
     <!--  CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="indexpage.css" type="text/css" />
-    <link rel="stylesheet" href="resultpage.css" type="text/css" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/indexpage.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/resultpage.css' %}" type="text/css" />
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -18,16 +19,9 @@
   </head>
 
   <body>
-<!--
-    <div class="alert alert-danger alert-dismissible " role="alert">
-      <strong>OwO Invalid URL!</strong>Please try again!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-   -->
+
     <h1 class="h1Pos">Web Security Checker</h1>
-   
+   <p>
     <div class="inputPos row">
       <div class="col">
         <input class="form-control" type="url" placeholder="Please enter an URL" aria-label="URL" aria-describedby="basic-addon1">
@@ -36,7 +30,11 @@
         <button type="button" class="btn btn-warning">Enter</button>
       </div>
     </div>
-  
+  <p>
+  <p>
+  <div class="report-title" style="color:yellow;">
+  {{  url }}
+  </div>
 
     <div class="panel-group pos" >
 
@@ -51,31 +49,15 @@
         <div id="collapseOne" class="panel-collapse collapse">
           <div class="panel-body ">
             <table class="table table-hover">
-              <tr>
-                <td class="tdicon">1</td>
-                <td class="tdcontent">Mining</td>
-                <td class="tdicon">...</td>
-              </tr>
-              <tr>
-                <td class="tdicon">2</td>
-                <td class="tdcontent">Auto load</td>
-                <td class="tdicon">...</td>
-              </tr>
-              <tr>
-                <td class="tdicon">3</td>
-                <td class="tdcontent">Pop up</td>
-                <td class="tdicon">...</td>
-              </tr>
-              <tr>
-                <td class="tdicon">4</td>
-                <td class="tdcontent">hidden object</td>
-                <td class="tdicon">...</td>
-              </tr>
-              <tr>
-                <td class="tdicon"></td>
-                <td class="tdcontent">...</td>
-                <td class="tdicon"></td>
-              </tr>
+              {% for title in SourceCodeHandler %}
+              
+                <tr>
+                  <td class="tdicon">1</td>
+                  <td class="tdcontent">{{title}}</td>
+                  <td class="tdicon">{{content}}</td>
+                </tr>
+              
+              {% endfor %}
             </table>
           </div>
         </div>

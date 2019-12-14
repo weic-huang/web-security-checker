@@ -18,22 +18,29 @@
   </head>
 
   <body>
-    {% if url_success %}
+    {% if url_alert %}
+    
     <div class="alert alert-danger alert-dismissible " role="alert">
       <strong>OwO Invalid URL!</strong>Please try again!
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+
+     <h1>
+    {{url_output}}
+    </h1>
     {% endif %}
     
     <h1 class="h1Pos">Web Security Checker</h1>
    
     <div class="inputPos">
-      <input type="text" placeholder="Please enter an URL" name="URL_input" aria-describedby="basic-addon1">
-        <button type="button" class="btn btn-success">Enter</button>
+        <form method="POST">
+          <input type="text" placeholder="Please enter an URL" name="URL_input" aria-describedby="basic-addon1">
+          <button type="button" class="btn btn-warning">Enter</button>
+        </form >
     </div>
-
+   
   </body>
 </html>
 
