@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import re
+from WebApp.models import Model
+
 def index(request):
 	url_mode = 0
 	url_alert = 0
@@ -13,6 +15,7 @@ def index(request):
 			url_alert = 1
 		else :
 			url_mode = 1
+
 
 	if url_mode==0:
 		return render(request, './indexpage.html',{'url_alert':url_alert,'url_output':enterurl})

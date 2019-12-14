@@ -2,6 +2,7 @@ from django.db import models
 import BrowserSimulator.BrowserSimulator as BS
 import SourceCodeHandler.SourceCodeHandler as SC
 import Blacklist.BlacklistManager as BL
+from WebApp.Result import Result
 from queue import Queue
 import threading
 import sys
@@ -37,26 +38,45 @@ class MininglistDB(models.Model):
 	def __str__(self):
 		return self.url	
 
-def validURL(url):
-	if re.match(r'^https?:/{2}\w.+$', url):
-		url = url.replace("https", "http", 1)
-		return url
-	else:
-	    return ""
+class MyThread(threading.Thread):
+    def __init__(self, target=None, args=(), **kwargs):
+        super(MyThread, self).__init__()
+        self.target = target
+        self.args = args
+        self.kwargs = kwargs
 
-def urlProcess(url):
-	bs = BS(url)
-	sc = SC(url)
-	bl = BL(url)
-	Threads = []
-	result = Queue()
-	Threads.append(threading.Thread(target = bs.simulateManager))
-	Threads.append(threading.Thread(target = sc.parse))
-	Threads.append(threading.Thread(target = bl.check))
-	for t in Threads:
-		t.start()
-	for t in Threads:
-		t.join()
+    def run(self):
+        if self.target == None:
+            return
+        self.result = self.target(*self.args, **self.kwargs)
+
+    def get_result(self):
+        self.join()#當需要取得結果值的時候阻塞等待子執行緒完成
+        return self.result
+class Model(object):	
+	def validURL(url):
+		if re.match(r'^https?:/{2}\w.+$', url):
+			url = url.replace("https", "http", 1)
+			return url
+		else:
+		    return ""
+
+	def urlProcess(url):
+		print("hi")
+		bs = BS.BrowserSimulator(url)
+		sc = SC.SourceCodeHandler(url)
+		bl = BL.BlacklistManager(url)
+		"""bsResult = MyThread(target = bs.simulateManager)
+		scResult = MyThread(target = sc.parse)
+		blResult = MyThread(target = bl.check)
+		bsResult.start()
+		scResult.start()
+		blResult.start()
+		print(bsResult.get_result())
+		print(scResult.get_result())
+		print(blResult.get_result())"""
+		return 
+
 
 
 

@@ -8,10 +8,11 @@ import time
 class BrowserSimulator():
 	def __init__(self, url):
 		self.url = url
-		self.simulateManager()
+		#self.simulateManager()
 	
 	def simulateManager(self):
 		self.simulator()
+		return "hello world"
 	
 	def simulator(self):
 		self.proc = subprocess.Popen(['python3', 'simulate.py', self.url],
