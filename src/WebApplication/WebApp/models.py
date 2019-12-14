@@ -53,6 +53,7 @@ class MyThread(threading.Thread):
     def get_result(self):
         self.join()#當需要取得結果值的時候阻塞等待子執行緒完成
         return self.result
+
 class Model(object):	
 	def validURL(url):
 		if re.match(r'^https?:/{2}\w.+$', url):
@@ -75,7 +76,7 @@ class Model(object):
 		print(bsResult.get_result())
 		print(scResult.get_result())
 		print(blResult.get_result())"""
-		return 
+		return Result(url)
 
 
 

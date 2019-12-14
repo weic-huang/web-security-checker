@@ -49,7 +49,7 @@
         <div id="collapseOne" class="panel-collapse collapse">
           <div class="panel-body ">
             <table class="table table-hover">
-              {% for title in SourceCodeHandler %}
+              {{ SourceCodeHandler.isMining }}
               
                 <tr>
                   <td class="tdicon">1</td>
@@ -57,7 +57,7 @@
                   <td class="tdicon">{{content}}</td>
                 </tr>
               
-              {% endfor %}
+             
             </table>
           </div>
         </div>
@@ -74,7 +74,17 @@
         <div id="collapseTwo" class="panel-collapse collapse">
           <div class="panel-body">
 
-            Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
+              <table class="table table-hover">
+              {{BlacklistResult.maliciousType }}
+              
+                <tr>
+                  <td class="tdicon">2</td>
+                  <td class="tdcontent">{{title}}</td>
+                  <td class="tdicon">{{content}}</td>
+                </tr>
+              
+              
+            </table>
           </div>
         </div>
       </div>
@@ -89,7 +99,17 @@
         </div>
         <div id="collapseThree" class="panel-collapse collapse">
           <div class="panel-body">
-          Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
+             <table class="table table-hover">
+              {{ BrowserSimulatorResult.CPU }}
+              
+                <tr>
+                  <td class="tdicon">3</td>
+                  <td class="tdcontent">{{title}}</td>
+                  <td class="tdicon">{{content}}</td>
+                </tr>
+              
+  
+            </table>
           </div>
         </div>
       </div>

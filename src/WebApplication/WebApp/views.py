@@ -3,18 +3,22 @@ from django.http import HttpResponse
 import re
 from WebApp.models import Model
 
+
+
 def index(request):
 	url_mode = 0
 	url_alert = 0
 	enterurl = request.POST.get('URL_input') 
 	url=""
 	if enterurl!=None:
-		url = validURL(enterurl);
+		url = Model.validURL(enterurl);
 		if url=="":
 			url_mode = 0
 			url_alert = 1
 		else :
 			url_mode = 1
+			Result=Model.urlProcess(url)
+
 
 
 	if url_mode==0:
@@ -22,17 +26,10 @@ def index(request):
 	else:
 		return render(request, './resultpage.html',{
 		'url':url,
-		'BlacklistResult':"",
-		'BrowserSimulatorResult':{"MEM":0.0,"CPU":0.0,"IMG":"img_filename"},
-		'SourceCodeHandler':{'isMining':"true",'mining_type':"string",'isAutoDownload':"true",
-					'hasPoPUp':"true",'hasHiddenObject':"true",'hasNotification':"true",'hasHardwareAccess':"string"}
-
+		'BlacklistResult':Result.BlackListManager,
+		'BrowserSimulatorResult':Result.BrowserSimulator,
+		'SourceCodeHandler':Result.SourceCodeHandler
 		})#result
 
 
-def validURL(url):
-	if re.match(r'^https?:/{2}\w.+$', url):
-		url = url.replace("https", "http", 1)
-		return url
-	else:
-	    return ""
+
