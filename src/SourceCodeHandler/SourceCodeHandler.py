@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import re
 import validators
+import time
+
 
 
 class SourceCodeHandler():
@@ -26,6 +28,8 @@ class SourceCodeHandler():
 
 		driver = webdriver.Chrome(chrome_options=options,executable_path="./include/chromedriver.exe")
 		driver.get(self.url)
+
+		# time.sleep(5)
 
 		soup = BeautifulSoup(driver.page_source, "html.parser")
 		scripts = soup.find_all('script')
@@ -58,6 +62,34 @@ class SourceCodeHandler():
 
 			self.JSfunctions.append(self.sourceCode[i:now])
 
+		allElements = []
+		eles = driver.find_elements_by_xpath('//*')
+
+		for ele in eles:
+			try:
+				ss = ele.get_attribute("outerHTML")				
+			except:
+				print(type(ele))
+				continue
+
+			if ss[0] != "<":
+				print("????")
+
+			else:
+				i = 1
+				flag = 1
+				while flag != 0:
+					if ss[i] == "<":
+						flag += 1
+					if ss[i] == ">":
+						flag -= 1
+					i += 1
+				
+			allElements.append(ss[0:i])
+
+		print(len(allElements))
+
+
 
 
 
@@ -72,3 +104,8 @@ class SourceCodeHandler():
 	def callHtmlScanner(self):
 		# as title
 		pass
+
+
+if __name__ == "__main__":
+	s = SourceCodeHandler("https://www.mobile01.com/topicdetail.php?f=37&t=5886669")
+	s.parse()
