@@ -1,3 +1,4 @@
 validators
 bs4
 selenium
+requests
