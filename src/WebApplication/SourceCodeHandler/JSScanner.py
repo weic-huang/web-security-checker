@@ -4,6 +4,18 @@ class JSScanner():
     def __init__(self):
         pass
 
+    def checkMaliciousBehavior(self, functions):
+        # check if functions exhibit malicious behavior
+
+        result_dict = self.checkHardwareAccess(functions)
+        if self.checkAutoDownload(functions):
+            result_dict['auto-download'] = True
+        if self.checkPopUp(functions):
+            result_dict['popup'] = True
+        if self.checkNotification(functions):
+            result_dict['notification'] = True
+        return result_dict
+
     def checkAutoDownload(self, functions):
         # check if functions try to generate downloads without user interaction
 
@@ -18,7 +30,7 @@ class JSScanner():
         # check if the provided functions try to create popup windows without user-triggered events
 
         for f in functions:
-            if ('window.open' in f) and not ('onclick' in f):
+            if ('window.open' in f) and not ('click' in f):
                 return True
         return False
 
