@@ -44,7 +44,7 @@ class MyThread(threading.Thread):
         self.target = target
         self.args = args
         self.kwargs = kwargs
-
+        self.result = {}
     def run(self):
         if self.target == None:
             return
@@ -58,7 +58,7 @@ class Model(object):
 	def __init__(self, url):
 		self.url = url
 		self.result = Result(url)
-	def validURL(self, url):
+	def validURL(self):
 		if re.match(r'^https?:/{2}\w.+$', self.url):
 			self.url = self.url.replace("https", "http", 1)
 			return self.url
@@ -81,9 +81,9 @@ class Model(object):
 		#self.result.SourceCodeHandler = scResult.get_result()
 		self.result.BrowserSimulator = bsResult.get_result()
 		self.result.BlacklistManager = blResult.get_result()
-		print(self.result.BlacklistManager.maliciousType)
+		#print(self.result.BlacklistManager.maliciousType)
 		return self.result
-	def get_result(self, url):
+	def get_result(self):
 		return self.result
 
 

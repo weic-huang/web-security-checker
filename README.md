@@ -10,6 +10,13 @@ Term project for Software Engineering 2019
 pip install -r requirements.txt
 ``
 
+### Build db
+``
+python manage.py makemigrations
+python manage.py migrate
+python manage.py loaddata WebApp/fixtures/MininglistDb.json WebApp/fixtures/blacklistDB.json
+``
+
 ### Run server (src/WebApplication)
 ``
 python manage.py runserver 
