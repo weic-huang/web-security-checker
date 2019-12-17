@@ -44,7 +44,7 @@ class MyThread(threading.Thread):
         self.target = target
         self.args = args
         self.kwargs = kwargs
-
+        self.result = {}
     def run(self):
         if self.target == None:
             return
@@ -86,7 +86,7 @@ class Model(object):
 		print(self.result.SourceCodeHandler.hasAutoDownLoad)
 		print(self.result.SourceCodeHandler.hasPipUp)
 		return self.result
-	def get_result(self, url):
+	def get_result(self):
 		return self.result
 
 

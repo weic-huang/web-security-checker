@@ -9,7 +9,7 @@ options.add_argument('--headless')
 browser = webdriver.Chrome(options=options,executable_path="../../include/chromedriver")
 browser.get(url)
 
-path = "WebApp/static/img/"
+path = "WebApp/static/img/screenshot/"
 browser.save_screenshot(path+viewfilename)
 print ('done')
 sys.stdout.flush()
