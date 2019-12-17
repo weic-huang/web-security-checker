@@ -7,7 +7,7 @@ class MiningChecker():
 		self.JSfunctions = JSfunctions
 		self.srcPaths = srcPaths
 
-	def call():
+	def call(self):
 		outputValue = {"isMining": False,
 						"miningType": ""}
 
