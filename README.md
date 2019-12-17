@@ -10,6 +10,9 @@ Term project for Software Engineering 2019
 pip install -r requirements.txt
 ``
 
+### Run server (src/WebApplication)
+python manage.py runserver 
+
 ### Run unit tests
 ``
 python -m unittest discover ./tests/
@@ -24,6 +27,7 @@ python -m unittest tests/SourceCodeHandlerTest/SourceCodeHandlerTest.py
 ``
 
 This command can run the specific test file you want.
+
 
 
 

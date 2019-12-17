@@ -28,7 +28,8 @@ def index(request):
 		'url':url,
 		'BlacklistResult':Result.BlackListManager,
 		'BrowserSimulatorResult':Result.BrowserSimulator,
-		'SourceCodeHandler':Result.SourceCodeHandler
+		'SourceCodeHandler':Result.SourceCodeHandler,
+		'item' : ["isMining","MiningType","isAutoDownload","hasPopUp","hasHiddenObject","hasNotification","hasHardwareAccess"]
 		})#result
 
 

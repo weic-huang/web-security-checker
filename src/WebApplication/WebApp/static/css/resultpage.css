@@ -44,11 +44,15 @@ color: black;
 	margin-top: 12%;
 
 }
+table{
+
+	text-align: left;
+}
 .tdicon{
-	width:15%;
+	text-align: left;
 }
 .tdcontent{
 	text-align: left;
 	padding-left:1rem;
-	width:70%;
+
 }

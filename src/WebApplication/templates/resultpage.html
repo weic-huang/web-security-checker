@@ -49,15 +49,44 @@
         <div id="collapseOne" class="panel-collapse collapse">
           <div class="panel-body ">
             <table class="table table-hover">
-              {{ SourceCodeHandler.isMining }}
-              
+               <!-- 'item' : ["isMining","MiningType","isAutoDownload","hasPopUp","hasHiddenObject","hasNotification","hasHardwareAccess"] -->
                 <tr>
-                  <td class="tdicon">1</td>
-                  <td class="tdcontent">{{title}}</td>
-                  <td class="tdicon">{{content}}</td>
+                  <td class="tdicon ">1</td>
+                  <td class="tdcontent ">Mining</td>
+                  <td class="tdicon">{{SourceCodeHandler.isMining }}</td>
                 </tr>
-              
-             
+
+                <tr>
+                  <td class="tdicon">2</td>
+                  <td class="tdcontent ">Mining Type</td>
+                  <td class="tdicon">{{SourceCodeHandler.MiningType }}</td>
+                </tr>
+                <tr>
+                  <td class="tdicon ">3</td>
+                  <td class="tdcontent">AutoDownload</td>
+                  <td class="tdicon">{{SourceCodeHandler.isAutoDownload }}</td>
+                </tr>
+                <tr>
+                  <td class="tdicon ">4</td>
+                  <td class="tdcontent">Pop Up</td>
+                  <td class="tdicon">{{SourceCodeHandler.hasPopUp }}</td>
+                </tr>
+                <tr>
+                  <td class="tdicon">5</td>
+                  <td class="tdcontent">Hidden Object</td>
+                  <td class="tdicon">{{SourceCodeHandler.hasHiddenObject }}</td>
+                </tr>
+                <tr>
+                  <td class="tdicon ">6</td>
+                  <td class="tdcontent ">Notification</td>
+                  <td class="tdicon">{{SourceCodeHandler.hasNotification }}</td>
+                </tr>
+                <tr>
+                  <td class="tdicon ">7</td>
+                  <td class="tdcontent">HardwareAccess</td>
+                  <td class="tdicon">{{SourceCodeHandler.hasHardwareAccess }}</td>
+                </tr>
+
             </table>
           </div>
         </div>
@@ -75,12 +104,15 @@
           <div class="panel-body">
 
               <table class="table table-hover">
-              {{BlacklistResult.maliciousType }}
-              
+
                 <tr>
-                  <td class="tdicon">2</td>
-                  <td class="tdcontent">{{title}}</td>
-                  <td class="tdicon">{{content}}</td>
+                  {% if BlacklistResult.maliciousType == "safe URL" %} 
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success" width="40px" height="30px"></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="40px" height="30px" ></td>
+                  {% endif %}
+                  <td class="tdcontent">malicious Type</td>
+                  <td class="tdicon">{{BlacklistResult.maliciousType}}</td>
                 </tr>
               
               
@@ -100,12 +132,21 @@
         <div id="collapseThree" class="panel-collapse collapse">
           <div class="panel-body">
              <table class="table table-hover">
-              {{ BrowserSimulatorResult.CPU }}
               
                 <tr>
+                  <td class="tdicon">1</td>
+                  <td class="tdcontent ">CPU</td>
+                  <td class="tdicon "> {{ BrowserSimulatorResult.CPU }}</td>
+                </tr>
+                <tr>
+                  <td class="tdicon ">2</td>
+                  <td class="tdcontent ">MEM</td>
+                  <td class="tdicon "> {{ BrowserSimulatorResult.MEM }}</td>
+                </tr>
+                <tr>
                   <td class="tdicon">3</td>
-                  <td class="tdcontent">{{title}}</td>
-                  <td class="tdicon">{{content}}</td>
+                  <td class="tdcontent">IMG</td>
+                  <td class="tdicon"> {{ BrowserSimulatorResult.IMG }}</td>
                 </tr>
               
   
