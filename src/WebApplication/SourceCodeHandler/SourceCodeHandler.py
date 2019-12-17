@@ -6,6 +6,8 @@ from selenium.webdriver.chrome.options import Options
 from SourceCodeHandler.HtmlScanner import HtmlScanner
 from SourceCodeHandler.JSScanner import JSScanner
 from SourceCodeHandler.MiningChecker import MiningChecker
+from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
+
 from urllib.parse import urlparse
 import re
 import validators
@@ -16,6 +18,7 @@ import time
 # then call call(), it will return what you want
 
 class SourceCodeHandler():
+
 	def __init__(self,url):
 		self.url = url
 		self.sourceCode = ""
@@ -23,13 +26,13 @@ class SourceCodeHandler():
 		self.JSfunctions = []
 		self.srcPaths = []
 
-	def call():
-		output = {}
-		output = merge_two_dicts(output, self.callHtmlScanner())
-		output = merge_two_dicts(output, self.callJSScanner())
-		output = merge_two_dicts(output, self.callMiningChecker())
+	def call(self):
+		outputData = {}
+		outputData = {**outputData, **self.callHtmlScanner()}
+		outputData = {**outputData, **self.callJSScanner()}
+		outputData = {**outputData, **self.callMiningChecker()}
+		output = SourceCodeHandlerResult(outputData)
 		return output
-
 
 
 	def parse(self):
@@ -134,6 +137,6 @@ class SourceCodeHandler():
 		return result
 
 	def callHtmlScanner(self):
-		HtmlObj = HtmlScanner(self.HtmlObject)
-		result = HtmlObj.checkHiddenObject()
-		return result
+		HtmlObj = HtmlScanner()
+		result = HtmlObj.checkHiddenObject(self.HtmlObject)
+		return {"hasHiddenObject" : result}
