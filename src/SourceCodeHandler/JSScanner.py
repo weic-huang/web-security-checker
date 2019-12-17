@@ -4,7 +4,7 @@ class JSScanner():
     def __init__(self):
         pass
 
-    def checkAutoDownload(self):
+    def checkAutoDownload(self, functions):
         # check if functions try to generate downloads without user interaction
 
         for f in functions:
@@ -14,7 +14,7 @@ class JSScanner():
                     return True
         return False
 
-    def checkPopUp(self):
+    def checkPopUp(self, functions):
         # check if the provided functions try to create popup windows without user-triggered events
 
         for f in functions:
@@ -30,7 +30,7 @@ class JSScanner():
                 return True
         return False
 
-    def checkHardwareAccess(self):
+    def checkHardwareAccess(self, functions):
         # check if the provided functions try to access camera, microphone or other hardwares
         hardware_dict = {}
 
