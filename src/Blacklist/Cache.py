@@ -1,11 +1,9 @@
+from django.core.cache import cache
 
-class Cache():
-	def __init__(self, url, maliciousType):
-		self.url = url
-		self.maliciousType = maliciousType
+class Cache():	
+	def check(self, url):
+		return cache.get(url, "")
 	
-	def check(self.url):
-		pass
-	
-	def update(self):
-		pass
+	def update(self, url, maliciousType):
+		cache.set(url, maliciousType, 30)
+		
