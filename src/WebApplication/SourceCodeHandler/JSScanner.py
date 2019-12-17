@@ -30,7 +30,7 @@ class JSScanner():
         # check if the provided functions try to create popup windows without user-triggered events
 
         for f in functions:
-            if ('window.open' in f) and not ('onclick' in f):
+            if ('window.open' in f) and not ('click' in f):
                 return True
         return False
 
