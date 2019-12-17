@@ -1,10 +1,10 @@
-from Blacklist import BlacklistResult
-from BrowserSimulator import BrowserSimulatorResult
-from SourceCodeHandler import SourceCodeHandlerResult
+from Blacklist.BlacklistResult import BlacklistResult
+from BrowserSimulator.BrowserSimulator import SimulatorResult
+from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
 
 class Result():
 	def __init__(self, url):
 		self.Url = url
-		self.BlackListManager = BlacklistResult.BlacklistResult()
-		self.BrowserSimulator = BrowserSimulatorResult.BrowserSimulatorResult()
-		self.SourceCodeHandler = SourceCodeHandlerResult.SourceCodeHandlerResult()
+		self.BlackListManager = BlacklistResult("")
+		self.BrowserSimulator = SimulatorResult()
+		self.SourceCodeHandler = SourceCodeHandlerResult()
