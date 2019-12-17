@@ -1,21 +1,16 @@
-.h1Pos{
-	position:fixed; /*固定位置定位*/
+.titlePos{
+	position:absolute;
   	top:4%; 
   	left:34%;
 }
 
 .inputPos{
-	position:fixed; /*固定位置定位*/
+    position:absolute;
   	top:14%; 
  	left:10%;
  	right:10%;
-
 }
 
-.panel-default{
-	
-	
-}
 .panel-heading{
 	text-align: left;
 	height: 10%;
@@ -28,31 +23,30 @@
 .panel-title{
 padding-left:1rem;
 color: black;
-
 }
 .panel-body{
 	border-color: black;
 	border-style: solid;
 	border-width: 1px;
 	background-color:white; 
-
 }
 
 
 .pos{
 	width:60%;
 	margin-top: 12%;
-
 }
-table{
 
+.tdicon{
+	width:10%;
 	text-align: left;
 }
-.tdicon{
+.tdtitle{
+	width:20%;
 	text-align: left;
 }
 .tdcontent{
+	width:70%;
 	text-align: left;
 	padding-left:1rem;
-
 }

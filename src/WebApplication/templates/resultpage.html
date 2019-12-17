@@ -16,11 +16,18 @@
 
 
     <title>Web Security Checker</title>
+    <!--<script language="JavaScript">
+
+      function myrefresh() {
+        window.location.reload();
+      }
+      setTimeout('myrefresh()', 30000); //指定30秒刷新一次
+    </script>-->
   </head>
 
   <body>
 
-    <h1 class="h1Pos">Web Security Checker</h1>
+    <h1 class="titlePos">Web Security Checker</h1>
    <p>
     <div class="inputPos row">
       <div class="col">
@@ -51,40 +58,90 @@
             <table class="table table-hover">
                <!-- 'item' : ["isMining","MiningType","isAutoDownload","hasPopUp","hasHiddenObject","hasNotification","hasHardwareAccess"] -->
                 <tr>
-                  <td class="tdicon ">1</td>
-                  <td class="tdcontent ">Mining</td>
-                  <td class="tdicon">{{SourceCodeHandler.isMining }}</td>
+                  {% if SourceCodeHandler.isMining  == "None" %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.isMining  == "False" %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="safe" width="20px" height="20px" ></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="warning" width="20px" height="20px" ></td>
+                  {% endif %}
+
+                  <td class="tdtitle ">Mining</td>
+                  <td class="tdcontent">{{SourceCodeHandler.isMining }}</td>
                 </tr>
 
                 <tr>
-                  <td class="tdicon">2</td>
-                  <td class="tdcontent ">Mining Type</td>
-                  <td class="tdicon">{{SourceCodeHandler.MiningType }}</td>
+                  <!--
+                  {% if SourceCodeHandler.MiningType == "Loading" %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.MiningType == "" %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success" width="25px" height="20px" ></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="40px" height="30px" ></td>
+                  {% endif %}  -->
+                  <td class="tdicon">   </td>
+                  <td class="tdtitle ">Mining Type</td>
+                  <td class="tdcontent">{{SourceCodeHandler.MiningType }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon ">3</td>
-                  <td class="tdcontent">AutoDownload</td>
-                  <td class="tdicon">{{SourceCodeHandler.isAutoDownload }}</td>
+                  {% if SourceCodeHandler.isAutoDownload == None %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.isAutoDownload == False %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="safe" width="20px" height="20px" ></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+
+                  <td class="tdtitle">AutoDownload</td>
+                  <td class="tdcontent">{{SourceCodeHandler.isAutoDownload }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon ">4</td>
-                  <td class="tdcontent">Pop Up</td>
-                  <td class="tdicon">{{SourceCodeHandler.hasPopUp }}</td>
+                  {% if SourceCodeHandler.hasPopUp == None %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.hasPopUp == False %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="safe" width="20px" height="20px" ></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+
+                  <td class="tdtitle">Pop Up</td>
+                  <td class="tdcontent">{{SourceCodeHandler.hasPopUp }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon">5</td>
-                  <td class="tdcontent">Hidden Object</td>
-                  <td class="tdicon">{{SourceCodeHandler.hasHiddenObject }}</td>
+                  {% if SourceCodeHandler.hasHiddenObject== None %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.hasHiddenObject == False %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="safe" width="20px" height="20px" ></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+
+                  <td class="tdtitle">Hidden Object</td>
+                  <td class="tdcontent">{{SourceCodeHandler.hasHiddenObject }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon ">6</td>
-                  <td class="tdcontent ">Notification</td>
-                  <td class="tdicon">{{SourceCodeHandler.hasNotification }}</td>
+                  {% if SourceCodeHandler.hasNotification == None %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.hasNotification == False %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="safe" width="20px" height="20px" ></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+                 
+                  <td class="tdtitle ">Notification</td>
+                  <td class="tdcontent">{{SourceCodeHandler.hasNotification }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon ">7</td>
-                  <td class="tdcontent">HardwareAccess</td>
-                  <td class="tdicon">{{SourceCodeHandler.hasHardwareAccess }}</td>
+                  {% if SourceCodeHandler.hasHardwareAccess == ""  %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif SourceCodeHandler.hasHardwareAccess == "no address" %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="safe" width="20px" height="20px"></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+
+                  <td class="tdtitle">HardwareAccess</td>
+                  <td class="tdcontent">{{SourceCodeHandler.hasHardwareAccess }}</td>
                 </tr>
 
             </table>
@@ -106,13 +163,15 @@
               <table class="table table-hover">
 
                 <tr>
-                  {% if BlacklistResult.maliciousType == "safe URL" %} 
-                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success" width="40px" height="30px"></td>
+                  {% if BlacklistResult.maliciousType == "Loading" %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif BlacklistResult.maliciousType == "safe URL"%}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success" width="20px" height="20px"></td>
                   {% else %}
-                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="40px" height="30px" ></td>
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
                   {% endif %}
-                  <td class="tdcontent">malicious Type</td>
-                  <td class="tdicon">{{BlacklistResult.maliciousType}}</td>
+                  <td class="tdtitle">malicious Type</td>
+                  <td class="tdcontent">{{BlacklistResult.maliciousType}}</td>
                 </tr>
               
               
@@ -131,22 +190,39 @@
         </div>
         <div id="collapseThree" class="panel-collapse collapse">
           <div class="panel-body">
-             <table class="table table-hover">
+             <table class="table table-hover table-borded">
               
                 <tr>
-                  <td class="tdicon">1</td>
-                  <td class="tdcontent ">CPU</td>
-                  <td class="tdicon "> {{ BrowserSimulatorResult.CPU }}</td>
+                  {% if BrowserSimulatorResult.CPU == 0 %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif BrowserSimulatorResult.CPU >  0 %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success" width="20px" height="20px"></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+                  <td class="tdtitle ">CPU</td>
+                  <td class="tdcontent "> {{ BrowserSimulatorResult.CPU }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon ">2</td>
-                  <td class="tdcontent ">MEM</td>
-                  <td class="tdicon "> {{ BrowserSimulatorResult.MEM }}</td>
+                  {% if BrowserSimulatorResult.MEM == 0 %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% elif BrowserSimulatorResult.MEM > 0 %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success" width="20px" height="20px"></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/x.png' %}" alt="fault" width="20px" height="20px" ></td>
+                  {% endif %}
+                  <td class="tdtitle ">Memory</td>
+                  <td class="tdcontent "> {{ BrowserSimulatorResult.MEM }}</td>
                 </tr>
                 <tr>
-                  <td class="tdicon">3</td>
-                  <td class="tdcontent">IMG</td>
-                  <td class="tdicon"> {{ BrowserSimulatorResult.IMG }}</td>
+                  {% if  BrowserSimulatorResult.Image == "" %}
+                  <td class="tdicon "><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  {% else %}
+                  <td class="tdicon"><img src="{% static 'img/checks.png' %}" alt="success"  width="20px" height="20px"></td>
+                  {% endif %}
+                  <td class="tdtitle">{{BrowserSimulatorResult.Image}}</td>
+                  <td class="tdcontent "><img src="{% static 'img/' %}{{BrowserSimulatorResult.Image}}"
+                   alt="{% static 'img/' %}{{BrowserSimulatorResult.Image}} " width="20px" height="20px"></td>
                 </tr>
               
   
