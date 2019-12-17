@@ -20,6 +20,7 @@ class BrowserSimulator():
 		self.viewfilename = randomString(10) + ".png"
 		self.simulator()
 		self.result = SimulatorResult(self.usagedata, self.viewfilename)
+		return self.result
 	
 	def simulator(self):
 		self.proc = subprocess.Popen(
@@ -44,9 +45,6 @@ class BrowserSimulator():
 		cpu = infoUsage.cpu_percent(interval=0.1)
 		cpu = 0
 		self.usagedata = UsageData(mem, cpu)
-	
-	def getResult(self):
-		return self.result
 
 class UsageData():
 	def __init__(self, mem, cpu):
