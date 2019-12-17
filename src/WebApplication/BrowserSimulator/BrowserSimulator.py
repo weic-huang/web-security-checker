@@ -51,9 +51,9 @@ class UsageData():
 		self.mem = mem
 		self.cpu = cpu
 
-class SimulatorResult():
+class BrowserSimulatorResult():
 	def __init__(self, usagedata, viewfilename):
-		self.usagedata = usagedata
+		self.usage = usagedata
 		self.viewfilename = viewfilename
 
 if __name__ == "__main__":

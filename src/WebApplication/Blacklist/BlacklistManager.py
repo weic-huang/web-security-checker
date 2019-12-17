@@ -1,7 +1,6 @@
 from Blacklist.Cache import Cache
 from Blacklist.DB import DB
 from Blacklist.ThirdParty import ThirdParty
-from Blacklist.BlacklistResult import BlacklistResult
 
 class BlacklistManager():
 	def __init__(self, url):
@@ -13,7 +12,7 @@ class BlacklistManager():
 		if result != "":
 			return result
 
-		result = self.checkDB()
+		#result = self.checkDB()
 		if result == "":
 			result = self.checkThirdParty()
 
@@ -44,3 +43,7 @@ class BlacklistManager():
 		thirdParty = ThirdParty(APIKEY)
 
 		return thirdParty.check(self.url)
+
+class BlacklistResult():
+	def __init__(self, maliciousType):
+		self.maliciousType = maliciousType
