@@ -10,7 +10,7 @@ Term project for Software Engineering 2019
 pip install -r requirements.txt
 ``
 
-### Build db
+### Build db (src/WebApplication)
 ```
 python manage.py makemigrations
 python manage.py migrate
