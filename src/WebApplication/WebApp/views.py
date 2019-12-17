@@ -10,14 +10,15 @@ def index(request):
 	url_alert = 0
 	enterurl = request.POST.get('URL_input') 
 	url=""
+	model = Model(enterurl)
 	if enterurl!=None:
-		url = Model.validURL(enterurl);
+		url = model.validURL(enterurl);
 		if url=="":
 			url_mode = 0
 			url_alert = 1
 		else :
 			url_mode = 1
-			Result=Model.urlProcess(url)
+			Result=model.urlProcess(url)
 
 
 
