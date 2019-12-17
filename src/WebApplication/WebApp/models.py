@@ -58,7 +58,7 @@ class Model(object):
 	def __init__(self, url):
 		self.url = url
 		self.result = Result(url)
-	def validURL(self, url):
+	def validURL(self):
 		if re.match(r'^https?:/{2}\w.+$', self.url):
 			self.url = self.url.replace("https", "http", 1)
 			return self.url
@@ -74,14 +74,17 @@ class Model(object):
 		scResult = MyThread(target = sc.call)
 		blResult = MyThread(target = bl.check)
 		bsResult.start()
-		#scResult.run()
+		scResult.run()
 		blResult.start()
 		#print(bsResult.get_result())
 		#print(scResult.get_result())
-		#self.result.SourceCodeHandler = scResult.get_result()
+		self.result.SourceCodeHandler = scResult.get_result()
 		self.result.BrowserSimulator = bsResult.get_result()
 		self.result.BlacklistManager = blResult.get_result()
-		print(self.result.BlacklistManager.maliciousType)
+		print(self.result.SourceCodeHandler.isMining)
+		print(self.result.SourceCodeHandler.miningType)
+		print(self.result.SourceCodeHandler.hasAutoDownLoad)
+		print(self.result.SourceCodeHandler.hasPipUp)
 		return self.result
 	def get_result(self, url):
 		return self.result
