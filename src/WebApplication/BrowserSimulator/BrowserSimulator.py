@@ -23,14 +23,16 @@ class BrowserSimulator():
 	
 	def simulator(self):
 		self.proc = subprocess.Popen(
-			['python3', 'simulate.py', self.url, self.viewfilename],
+			['python3', 'BrowserSimulator/Simulate.py', self.url, self.viewfilename],
+			stdin=subprocess.PIPE,
 			stdout=subprocess.PIPE,
 			stderr=subprocess.STDOUT)
-		self.proc.stdout.readline()
+		msg = self.proc.stdout.readline()
 		self.getUsage()
-		self.proc.terminate()
+		self.proc.stdin.write(b"done\n")
+		self.proc.stdin.flush()
 		try:
-			self.proc.wait(timeout=0.2)
+			self.proc.wait()
 			# print('exit with rc = ', self.proc.returncode)
 		except subprocess.TimeoutExpired:
 			print('not terminate in time')
@@ -40,6 +42,7 @@ class BrowserSimulator():
 		infoUsage = psutil.Process(self.proc.pid)
 		mem = infoUsage.memory_info().rss / 1024 #kb
 		cpu = infoUsage.cpu_percent(interval=0.1)
+		cpu = 0
 		self.usagedata = UsageData(mem, cpu)
 	
 	def getResult(self):
