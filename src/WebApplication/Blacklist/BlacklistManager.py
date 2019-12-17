@@ -1,6 +1,7 @@
 from Blacklist.Cache import Cache
 from Blacklist.DB import DB
 from Blacklist.ThirdParty import ThirdParty
+from Blacklist.BlacklistResult import BlacklistResult
 
 class BlacklistManager():
 	def __init__(self, url):
@@ -21,7 +22,7 @@ class BlacklistManager():
 
 		self.updateCache(result)
 
-		return result
+		return BlacklistResult(result)
 
 	def checkCache(self):
 		cache = Cache()
@@ -30,7 +31,7 @@ class BlacklistManager():
 
 	def updateCache(self, blacklistResult):
 		cache = Cache()		
-		cache.update(blacklistResult)
+		cache.update(self.url, blacklistResult)
 		return
 
 	def checkDB(self):
