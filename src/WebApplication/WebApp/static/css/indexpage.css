@@ -4,8 +4,13 @@ text-align:center;}
 h1{  
 	height: 2rem;
 	color:red;
-	/*font-weight:bold;*/
+
  }
+.titlePos{
+	position:absolute;
+  	top:30%; 
+  	left:34%;
+}
 
 .alert{ 
 	text-align:left;
@@ -27,14 +32,9 @@ div{  margin: 0 auto;}
 
 input{  width:80%; }
 
-.h1Pos{
-	position:fixed; /*固定位置定位*/
-  	top:30%; 
-  	left:34%;
-}
 
 .inputPos{
-	position:fixed; /*固定位置定位*/
+    position:absolute;
   	top:40%; 
  	left:10%;
  	right:10%;
