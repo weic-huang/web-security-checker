@@ -8,11 +8,11 @@ class BlacklistManager():
 
 	def check(self):
 
-		result = self.checkCache()
+		"""result = self.checkCache()
 		if result != "":
-			return result
+			return result"""
 
-		#result = self.checkDB()
+		result = self.checkDB()
 		if result == "":
 			result = self.checkThirdParty()
 

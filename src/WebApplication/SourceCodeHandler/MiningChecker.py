@@ -7,7 +7,7 @@ class MiningChecker():
 		self.JSfunctions = JSfunctions
 		self.srcPaths = srcPaths
 
-	def call():
+	def call(self):
 		outputValue = {"isMining": False,
 						"miningType": ""}
 
@@ -24,6 +24,8 @@ class MiningChecker():
 
 	def checkBlocklistFromDB(self):
 		
+		output = {"isMining" : False,
+			"miningType" : "Unrecognized"}
 		for path in self.srcPaths:
 			try:
 				data = models.MininglistDB.objects.get(url=url)
@@ -32,6 +34,7 @@ class MiningChecker():
 							"miningType" : "Unrecognized"}
 			except:
 				continue
+		return output
 
 		
 

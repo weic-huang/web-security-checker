@@ -19,7 +19,7 @@ class BrowserSimulator():
 	def simulateManager(self):
 		self.viewfilename = randomString(10) + ".png"
 		self.simulator()
-		self.result = SimulatorResult(self.usagedata, self.viewfilename)
+		self.result = BrowserSimulatorResult(self.usagedata, self.viewfilename)
 		return self.result
 	
 	def simulator(self):

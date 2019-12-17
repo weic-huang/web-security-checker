@@ -53,7 +53,7 @@ class MyThread(threading.Thread):
     def get_result(self):
         self.join()#當需要取得結果值的時候阻塞等待子執行緒完成
         return self.result
-       
+
 class Model(object):
 	def __init__(self, url):
 		self.url = url
@@ -74,13 +74,15 @@ class Model(object):
 		scResult = MyThread(target = sc.call)
 		blResult = MyThread(target = bl.check)
 		bsResult.start()
-		scResult.start()
+		#scResult.run()
 		blResult.start()
 		#print(bsResult.get_result())
 		#print(scResult.get_result())
-		self.result.SourceCodeHandler = scResult.get_result()
+		#self.result.SourceCodeHandler = scResult.get_result()
 		self.result.BrowserSimulator = bsResult.get_result()
 		self.result.BlacklistManager = blResult.get_result()
+		print(self.result.BlacklistManager.maliciousType)
+		return self.result
 	def get_result(self, url):
 		return self.result
 

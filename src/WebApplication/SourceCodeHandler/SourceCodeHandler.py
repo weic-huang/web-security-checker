@@ -43,7 +43,7 @@ class SourceCodeHandler():
 		options.add_argument("--headless")
 		# not to print console message in cmd
 		options.add_argument('log-level=1')
-		driver = webdriver.Chrome(chrome_options=options,executable_path="../../include/chromedriver.exe")
+		driver = webdriver.Chrome(chrome_options=options,executable_path="../../include/chromedriver")
 		driver.get(self.url)
 	
 		soup = BeautifulSoup(driver.page_source, "html.parser")
