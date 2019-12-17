@@ -1,7 +1,7 @@
 from django.db import models
-import BrowserSimulator.BrowserSimulator as BS
-import SourceCodeHandler.SourceCodeHandler as SC
-import Blacklist.BlacklistManager as BL
+from BrowserSimulator.BrowserSimulator import BrowserSimulator
+from SourceCodeHandler.SourceCodeHandler import SourceCodeHandler
+from Blacklist.BlacklistManager import BlacklistManager
 from WebApp.Result import Result
 from queue import Queue
 import threading
@@ -54,29 +54,35 @@ class MyThread(threading.Thread):
         self.join()#當需要取得結果值的時候阻塞等待子執行緒完成
         return self.result
 
-class Model(object):	
-	def validURL(url):
-		if re.match(r'^https?:/{2}\w.+$', url):
-			url = url.replace("https", "http", 1)
-			return url
+class Model(object):
+	def __init__(self, url):
+		self.url = url
+		self.result = Result(url)
+	def validURL(self, url):
+		if re.match(r'^https?:/{2}\w.+$', self.url):
+			self.url = self.url.replace("https", "http", 1)
+			return self.url
 		else:
 		    return ""
 
-	def urlProcess(url):
-		print("hi")
-		bs = BS.BrowserSimulator(url)
-		sc = SC.SourceCodeHandler(url)
-		bl = BL.BlacklistManager(url)
-		"""bsResult = MyThread(target = bs.simulateManager)
-		scResult = MyThread(target = sc.parse)
+	def urlProcess(self, url):
+		
+		bs = BrowserSimulator(url)
+		sc = SourceCodeHandler(url)
+		bl = BlacklistManager(url)
+		bsResult = MyThread(target = bs.simulateManager)
+		scResult = MyThread(target = sc.call)
 		blResult = MyThread(target = bl.check)
-		bsResult.start()
-		scResult.start()
-		blResult.start()
-		print(bsResult.get_result())
-		print(scResult.get_result())
-		print(blResult.get_result())"""
-		return Result(url)
+		bsResult.run()
+		scResult.run()
+		blResult.run()
+		#print(bsResult.get_result())
+		#print(scResult.get_result())
+		self.result.SourceCodeHandler = scResult.get_result()
+		self.result.BrowserSimulator = bsResult.get_result()
+		self.result.BlacklistManager = blResult.get_result()
+	def get_result(self, url):
+		return self.result
 
 
 

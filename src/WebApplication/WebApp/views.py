@@ -3,8 +3,6 @@ from django.http import HttpResponse
 import re
 from WebApp.models import Model
 
-
-
 class Frontend():
 	
 	def __init__(self):
@@ -44,5 +42,3 @@ class Frontend():
 					})
 
 		
-	
-

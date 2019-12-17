@@ -1,4 +1,5 @@
 # Should import db files
+import WebApp.models as models
 
 class MiningChecker():
 	
@@ -6,25 +7,39 @@ class MiningChecker():
 		self.JSfunctions = JSfunctions
 		self.srcPaths = srcPaths
 
-	def call():
+	def call(self):
 		outputValue = {"isMining": False,
 						"miningType": ""}
 
-		# do something
+		DBresult = self.checkBlocklistFromDB()
+		outputValue["isMining"] = DBresult["isMining"]
+		outputValue["miningType"] = DBresult["miningType"]
+
+		scriptResult = self.checkMiningScript()
+		outputValue["isMining"] = scriptResult
+
 				
 		return outputValue
 
 
 	def checkBlocklistFromDB(self):
+		
+		output = {"isMining" : False,
+			"miningType" : "Unrecognized"}
 		for path in self.srcPaths:
-			if path[0:5] != "https":
-				
+			try:
+				data = models.MininglistDB.objects.get(url=url)
+				if data != None:
+					return {"isMining" : True,
+							"miningType" : "Unrecognized"}
+			except:
+				continue
+		return output
 
-			
-
-
-		pass
+		
 
 	def checkMiningScript(self):
 		# as title
 		return False
+
+

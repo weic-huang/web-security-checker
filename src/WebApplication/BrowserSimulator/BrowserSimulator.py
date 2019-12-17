@@ -15,28 +15,26 @@ def randomString(stringLength):
 class BrowserSimulator():
 	def __init__(self, url):
 		self.url = url
-		self.simulateManager()
 	
 	def simulateManager(self):
-		self.viewfilename = randomString(10)
+		self.viewfilename = randomString(10) + ".png"
 		self.simulator()
 		self.result = SimulatorResult(self.usagedata, self.viewfilename)
-		# print(self.result.usagedata.mem)
-		# print(self.result.usagedata.cpu)
-		# print(self.result.viewfilename)
+		return self.result
 	
 	def simulator(self):
 		self.proc = subprocess.Popen(
-			['python3', 'simulate.py', self.url, self.viewfilename],
+			['python3', 'BrowserSimulator/Simulate.py', self.url, self.viewfilename],
+			stdin=subprocess.PIPE,
 			stdout=subprocess.PIPE,
 			stderr=subprocess.STDOUT)
-		time.sleep(0.3)
+		msg = self.proc.stdout.readline()
 		self.getUsage()
-		self.proc.stdout.readline()
-		self.proc.terminate()
+		self.proc.stdin.write(b"done\n")
+		self.proc.stdin.flush()
 		try:
-			self.proc.wait(timeout=0.2)
-			print('exit with rc = ', self.proc.returncode)
+			self.proc.wait()
+			# print('exit with rc = ', self.proc.returncode)
 		except subprocess.TimeoutExpired:
 			print('not terminate in time')
 
@@ -45,21 +43,23 @@ class BrowserSimulator():
 		infoUsage = psutil.Process(self.proc.pid)
 		mem = infoUsage.memory_info().rss / 1024 #kb
 		cpu = infoUsage.cpu_percent(interval=0.1)
-		print (mem)
-		print (cpu)
+		cpu = 0
 		self.usagedata = UsageData(mem, cpu)
-	
-	def getView(self):
-		pass
 
 class UsageData():
 	def __init__(self, mem, cpu):
 		self.mem = mem
 		self.cpu = cpu
 
-class SimulatorResult():
+class BrowserSimulatorResult():
 	def __init__(self, usagedata, viewfilename):
-		self.usagedata = usagedata
+		self.usage = usagedata
 		self.viewfilename = viewfilename
 
-# BrowserSimulator('test')
+if __name__ == "__main__":
+	s = BrowserSimulator("https://www.mobile01.com/topicdetail.php?f=37&t=5886669")
+	s.simulateManager()
+	result = s.getResult()
+	print(result.viewfilename)
+	print(result.usagedata.mem)
+	print(result.usagedata.cpu)

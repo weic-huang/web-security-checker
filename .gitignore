@@ -3,3 +3,4 @@ build/
 *.pyc
 *.pyo
 .vscode/
+src/WebApplication/SCHTest.py

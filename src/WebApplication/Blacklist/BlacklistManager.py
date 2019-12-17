@@ -12,7 +12,7 @@ class BlacklistManager():
 		if result != "":
 			return result
 
-		result = self.checkDB()
+		#result = self.checkDB()
 		if result == "":
 			result = self.checkThirdParty()
 
@@ -21,7 +21,7 @@ class BlacklistManager():
 
 		self.updateCache(result)
 
-		return result
+		return BlacklistResult(result)
 
 	def checkCache(self):
 		cache = Cache()
@@ -30,7 +30,7 @@ class BlacklistManager():
 
 	def updateCache(self, blacklistResult):
 		cache = Cache()		
-		cache.update(blacklistResult)
+		cache.update(self.url, blacklistResult)
 		return
 
 	def checkDB(self):
@@ -43,3 +43,7 @@ class BlacklistManager():
 		thirdParty = ThirdParty(APIKEY)
 
 		return thirdParty.check(self.url)
+
+class BlacklistResult():
+	def __init__(self, maliciousType):
+		self.maliciousType = maliciousType

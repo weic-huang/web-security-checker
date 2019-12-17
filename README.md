@@ -11,7 +11,9 @@ pip install -r requirements.txt
 ``
 
 ### Run server (src/WebApplication)
+``
 python manage.py runserver 
+``
 
 ### Run unit tests
 ``
