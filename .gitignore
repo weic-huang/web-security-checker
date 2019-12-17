@@ -4,3 +4,5 @@ build/
 *.pyo
 .vscode/
 src/WebApplication/SCHTest.py
+*/.DS_Store
+src/WebApp/static/img/screenshot/*
