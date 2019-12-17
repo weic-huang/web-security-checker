@@ -73,14 +73,16 @@ class Model(object):
 		bsResult = MyThread(target = bs.simulateManager)
 		scResult = MyThread(target = sc.call)
 		blResult = MyThread(target = bl.check)
-		bsResult.run()
-		scResult.run()
-		blResult.run()
+		bsResult.start()
+		#scResult.run()
+		blResult.start()
 		#print(bsResult.get_result())
 		#print(scResult.get_result())
-		self.result.SourceCodeHandler = scResult.get_result()
+		#self.result.SourceCodeHandler = scResult.get_result()
 		self.result.BrowserSimulator = bsResult.get_result()
 		self.result.BlacklistManager = blResult.get_result()
+		print(self.result.BlacklistManager.maliciousType)
+		return self.result
 	def get_result(self, url):
 		return self.result
 
