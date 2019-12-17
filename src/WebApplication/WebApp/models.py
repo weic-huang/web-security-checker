@@ -53,7 +53,7 @@ class MyThread(threading.Thread):
     def get_result(self):
         self.join()#當需要取得結果值的時候阻塞等待子執行緒完成
         return self.result
-       
+
 class Model(object):
 	def __init__(self, url):
 		self.url = url
@@ -73,9 +73,9 @@ class Model(object):
 		bsResult = MyThread(target = bs.simulateManager)
 		scResult = MyThread(target = sc.call)
 		blResult = MyThread(target = bl.check)
-		bsResult.start()
-		scResult.start()
-		blResult.start()
+		bsResult.run()
+		scResult.run()
+		blResult.run()
 		#print(bsResult.get_result())
 		#print(scResult.get_result())
 		self.result.SourceCodeHandler = scResult.get_result()
