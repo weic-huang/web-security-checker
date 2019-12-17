@@ -3,15 +3,19 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from src.SourceCodeHandler.JSScanner import JSScanner
+from src.SourceCodeHandler.HtmlScanner import HtmlScanner
 import re
 import validators
+import time
+
 
 
 class SourceCodeHandler():
 	def __init__(self,url):
 		self.url = url
 		self.sourceCode = ""
-		self.HtmlObject = {}
+		self.HtmlObject = []
 		self.JSfunctions = []
 		self.srcPaths = []
 
@@ -26,6 +30,8 @@ class SourceCodeHandler():
 
 		driver = webdriver.Chrome(chrome_options=options,executable_path="./include/chromedriver.exe")
 		driver.get(self.url)
+	
+		# time.sleep(5)
 
 		soup = BeautifulSoup(driver.page_source, "html.parser")
 		scripts = soup.find_all('script')
@@ -58,6 +64,42 @@ class SourceCodeHandler():
 
 			self.JSfunctions.append(self.sourceCode[i:now])
 
+		allElements = []
+		eles = driver.find_elements_by_xpath('//*')
+		for ele in eles:
+			try:
+				ss = ele.get_attribute("outerHTML")	
+			except:
+				continue
+
+			if ss[0] != "<":
+				# TODO
+				# Here should be some log message!!
+				continue
+
+
+			else:
+				i = 1
+				flag = 1
+				isvisible = ""
+				while flag != 0:
+					if ss[i] == "<":
+						flag += 1
+					if ss[i] == ">":
+						flag -= 1
+					i += 1
+				# This function can extend the hidden css of elements
+				isvisible = ele.value_of_css_property("visibility")
+				v = " visibility:" + isvisible
+
+
+				ss = ss[0:i-1] + v + ">"				
+				allElements.append(ss)
+
+
+		self.HtmlObject = allElements
+
+
 
 
 
@@ -72,3 +114,8 @@ class SourceCodeHandler():
 	def callHtmlScanner(self):
 		# as title
 		pass
+
+
+if __name__ == "__main__":
+	s = SourceCodeHandler("https://www.mobile01.com/topicdetail.php?f=37&t=5886669")
+	s.parse()

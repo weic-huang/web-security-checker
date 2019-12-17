@@ -5,9 +5,33 @@ class ThirdParty():
 		self.APIKEY = APIKEY
 
 	def check(self, url):
-		# malicious url
-		# "http://13453765871837679316.googlegroups.com/attach/5ed5d019a6363180/docfile.htm?part=0.1&view=1&vt=ANaJVrEeittmQwMxZJXRcDdPNLE2-gXGwGja7dnY6uPBYHXdeIAepWdlcx0i0SZ1YQhTDOduB7hNyqrKz6SyrwDQWlgfISVaRZcF3L5QvzKOv-oZ09G491A"
+		URL, PARA, DATA = self.setRequest(url)
 
+		threatType = ""
+		try:
+			r = requests.post(url = URL, json = DATA, params = PARA, timeout = 3)
+			r.raise_for_status()
+			result = r.json()
+			if 'matches' in result:
+				threatType = result['matches'][0]['threatType']
+
+			print("third party request success")
+
+		except requests.exceptions.Timeout as errt:
+			print ("Timeout Error:", errt)
+
+		except requests.exceptions.HTTPError as errh:
+			print ("Http Error:", errh)
+
+		except requests.exceptions.ConnectionError as errc:
+			print ("Error Connecting:", errc)
+
+		except requests.exceptions.RequestException as err:
+			print ("Error:", err)
+
+		return threatType
+
+	def setRequest(self, url):
 		URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find?"
 		PARA = {'key': self.APIKEY}
 		DATA = {
@@ -25,13 +49,7 @@ class ThirdParty():
 			}
 		}
 
-		result = requests.post(url = URL, json = DATA, params = PARA).json()
-
-		threatType = ""
-		if result:
-			threatType = result['matches'][0]['threatType']
-
-		return threatType
+		return URL, PARA, DATA
 
 	def updateKey(self):
 		pass
