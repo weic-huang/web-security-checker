@@ -42,13 +42,12 @@ color: black;
 	text-align: center;
 }
 .tdtitle{
-	width:30%;
+	width:20%;
 	text-align: left;
 }
 .tdcontent{
-	width:60%;
+	width:70%;
 	text-align: left;
-	padding-left:1rem;
 }
 .report-title{
 	position:absolute;

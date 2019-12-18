@@ -29,9 +29,10 @@ var x_icon= "<img src=\"/static/img/x.png\" alt=\"safe\" width=\"20px\" height=\
                     }
                   }
                   else if (i=="hasHardwareAccess"){
-                    console.log("hasHardwareAccess")
+                    
                     var empty=true;
                     for (var j in data[i]){
+                      console.log("hasHardwareAccess")
                         empty=false;
                         $('#SC_hasHardwareAccess').append("<br>" + j + " : " + data[i][j] );
                     }
@@ -73,7 +74,7 @@ var x_icon= "<img src=\"/static/img/x.png\" alt=\"safe\" width=\"20px\" height=\
               for (var i in data) {
                 if (i=="viewfilename"){
                   document.getElementById("BS_"+i+"_icon").innerHTML = safe_icon;
-                  var IMG = "<img src=\"/static/img/screenshoot/"+data[i]+"\" alt=\""+data[i]+"\" width=\"20px\" height=\"20px\" >"; 
+                  var IMG = "<img src=\"/static/img/screenshot/"+data[i]+"\" alt=\""+data[i]+"\" width=\"500px\" height=\"300px\" >"; 
                   console.log(IMG);
                   console.log(safe_icon);
                   
