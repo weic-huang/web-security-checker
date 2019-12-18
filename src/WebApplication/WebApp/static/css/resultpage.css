@@ -39,14 +39,25 @@ color: black;
 
 .tdicon{
 	width:10%;
-	text-align: left;
+	text-align: center;
 }
 .tdtitle{
-	width:20%;
+	width:30%;
 	text-align: left;
 }
 .tdcontent{
-	width:70%;
+	width:60%;
 	text-align: left;
 	padding-left:1rem;
+}
+.report-title{
+	position:absolute;
+	color:orange;
+	text-align: middle;
+	font-size:1rem;
+
+}
+.URL-title{
+	color: orange;
+
 }
