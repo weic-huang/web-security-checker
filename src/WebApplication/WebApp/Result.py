@@ -5,6 +5,7 @@ from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
 class Result():
 	def __init__(self, url):
 		self.Url = url
-		self.BlackListManager = None
+		self.BlacklistManager = None
 		self.BrowserSimulator = None
 		self.SourceCodeHandler = None
+

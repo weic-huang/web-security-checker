@@ -13,20 +13,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'js/ajax.js' %}" ></script>
 
     <title>Web Security Checker</title>
-    <script language="JavaScript">
-      var safe_icon= "<img src=\"{% static 'img/checks.png' %}\" alt=\"safe\" width=\"20px\" height=\"20px\" >";
-      var warning_icon= "<img src=\"{% static 'img/x.png' %}\" alt=\"safe\" width=\"20px\" height=\"20px\" >";
-      var IMG = "<img src=\"{% static 'img/screenshoot/' %}{{BrowserSimulatorResult.Image}}\" alt=\"loading ... \" width=\"20px\" height=\"20px\" ";
-      function myrequest() {
-          document.getElementById('SC_Mining_icon').innerHTML = safe_icon;
-           document.getElementById('SC_Mining').innerHTML = "test";
-      }
-      setTimeout('myrequest()', 3000); //指定3秒刷新一次
-       
-    </script>
+   
   </head>
 
   <body>
@@ -40,26 +31,22 @@
           <input type="text" placeholder="Please enter an URL" name="URL_input" aria-describedby="basic-addon1">
           <button type="submit" class="btn btn-warning">Enter</button>
         </form >
+        <form name="askresult" method="POST">
+          <input type="hidden" value="askresult" id="askresult" name="ask">
+        </form >
+      
     </div>
 
-    
-  <p>
-  <p>
-  
     <div class="panel-group pos" >
 
        <div class="panel panel-default">
+        <h4 class="panel-title URL-title">
+          Url: {{url}}
+        </h4>
         
-          <h4 class="panel-title URL-title">
-            
-              Url: {{url}}
-            
-          </h4>
-        
-
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse"  href="#collapseOne">
+            <a data-toggle="collapse"  href="#collapseOne" id="SC_title">
               Behavior Report
             </a>
           </h4>
@@ -69,40 +56,40 @@
             <table class="table table-hover">
           
                 <tr>
-                   <td class="tdicon " id="SC_Mining_icon" ><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                   <td class="tdicon " id="SC_isMining_icon" ><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle ">Mining</td>
-                  <td class="tdcontent "><p id="SC_Mining"></p></td>
+                  <td class="tdcontent "><p id="SC_isMining"></p></td>
                 </tr>
 
                 <tr>
-                  <td class="tdicon" >   </td>
+                  <td class="tdicon" id="SC_miningType_icon" >   </td>
                   <td class="tdtitle ">Mining Type</td>
-                  <td class="tdcontent"><p id="SC_Mining_type"></p></td>
+                  <td class="tdcontent"><p id="SC_miningType"></p></td>
                 </tr>
                 <tr>
-                  <td class="tdicon " id="SC_AutoDownload_icon"><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdicon " id="SC_hasAutoDownload_icon"><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle ">Auto Download</td>
-                  <td class="tdcontent "><p id="SC_AutoDownload"></p></td>
+                  <td class="tdcontent "><p id="SC_hasAutoDownload"></p></td>
                 </tr>
                 <tr>
-                 <td class="tdicon " id="SC_POP_icon" ><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                 <td class="tdicon " id="SC_hasPopUp_icon" ><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle ">POP Up</td>
-                  <td class="tdcontent "><p id="SC_POP"></p></td>
+                  <td class="tdcontent "><p id="SC_hasPopUp"></p></td>
                 </tr>
                 <tr>
-                   <td class="tdicon" id="SC_Hidden_icon"><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
-                  <td class="tdtitle "> Has Hidden Object</td>
-                  <td class="tdcontent "><p id="SC_Hidden"></p></td>
+                   <td class="tdicon" id="SC_hasHiddenObject_icon"><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdtitle "> Hidden Object</td>
+                  <td class="tdcontent "><p id="SC_hasHiddenObject"></p></td>
                 </tr>
                 <tr>
-                   <td class="tdicon " id="SC_Notify_icon"><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
-                  <td class="tdtitle "> Has Notification</td>
-                  <td class="tdcontent "><p id="SC_Notify"></p></td>
+                   <td class="tdicon " id="SC_hasNotification_icon"><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdtitle "> Notification</td>
+                  <td class="tdcontent "><p id="SC_hasNotification"></p></td>
                 </tr>
                 <tr>
-                   <td class="tdicon " id="SC_HardwareAccess_icon" ><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
-                  <td class="tdtitle "> Has Hardware Access</td>
-                  <td class="tdcontent "><p id="SC_HardwareAccess"></p></td>
+                   <td class="tdicon " id="SC_hasHardwareAccess_icon" ><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdtitle "> Hardware Access</td>
+                  <td class="tdcontent "><p id="SC_hasHardwareAccess"></p></td>
                 </tr>
 
             </table>
@@ -113,8 +100,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse"  href="#collapseTwo">
-              Blacklist checker
+            <a data-toggle="collapse"  href="#collapseTwo" id="BL_title">
+               Blacklist checker
             </a>
           </h4>
         </div>
@@ -124,9 +111,9 @@
               <table class="table table-hover">
 
                 <tr>
-                   <td class="tdicon " id="BR_malicioustype_icon" ><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                   <td class="tdicon " id="BL_maliciousType_icon" ><div  class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle ">Malicious Type</td>
-                  <td class="tdcontent "><p id="BR_malicioustype"></p></td>
+                  <td class="tdcontent "><p id="BL_maliciousType"></p></td>
                 </tr>
               
               </table>
@@ -137,7 +124,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse"  href="#collapseThree">
+            <a data-toggle="collapse"  href="#collapseThree" id="BS_title">
                Browser simulator
             </a>
           </h4>
@@ -147,20 +134,20 @@
              <table class="table table-hover table-borded">
               
                 <tr>
-                  <td class="tdicon "  id="BS_CPU_icon" ><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdicon "  id="BS_cpu_icon" ><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle ">CPU</td>
-                  <td class="tdcontent "><p id="BS_CPU"></p></td>
+                  <td class="tdcontent "><p id="BS_cpu"></p></td>
                 </tr>
                 <tr>
-                  <td class="tdicon"  id="BS_MEM_icon"><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdicon"  id="BS_mem_icon"><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle ">Memory</td>
-                  <td class="tdcontent "><p id="BS_MEM"></p></td>
+                  <td class="tdcontent "><p id="BS_mem"></p></td>
                 </tr>
                 <tr>
 
-                  <td class="tdicon" id="BS_IMG_icon" ><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
+                  <td class="tdicon" id="BS_viewfilename_icon" ><div class="spinner-border spinner-border-sm text-primary" role="status" ><span class="sr-only"></span></div></td>
                   <td class="tdtitle">Image</td>
-                  <td class="tdcontent" ><p id="BS_IMG" >loading ... </p></td>
+                  <td class="tdcontent" ><p id="BS_viewfilename" >loading ... </p></td>
 
                 </tr>
               
@@ -170,7 +157,7 @@
         </div>
       </div>
 
-    </div>  
+    </div>
   </body>
 </html>
 

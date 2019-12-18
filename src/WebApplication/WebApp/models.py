@@ -65,7 +65,14 @@ class Model(object):
 		else:
 		    return ""
 
-	def urlProcess(self, url):
+	def renewModel(self,url):
+		self.url=url
+		self.result.Url = url
+		self.result.BlacklistManager = None
+		self.result.BrowserSimulator = None
+		self.result.SourceCodeHandler = None
+
+	def urlProcess(self,url):
 		
 		bs = BrowserSimulator(url)
 		sc = SourceCodeHandler(url)
@@ -81,14 +88,33 @@ class Model(object):
 		self.result.SourceCodeHandler = scResult.get_result()
 		self.result.BrowserSimulator = bsResult.get_result()
 		self.result.BlacklistManager = blResult.get_result()
-		print(self.result.BlacklistManager.maliciousType)
-		print(self.result.SourceCodeHandler.isMining)
-		print(self.result.SourceCodeHandler.miningType)
-		print(self.result.SourceCodeHandler.hasAutoDownload)
-		print(self.result.SourceCodeHandler.hasPopUp)
+		#print(self.result.BlacklistManager.maliciousType)
+		#print(self.result.SourceCodeHandler.isMining)
+		#print(self.result.SourceCodeHandler.miningType)
+		#print(self.result.SourceCodeHandler.hasAutoDownload)
+		#print(self.result.SourceCodeHandler.hasPopUp)
+		#print(self.result.BrowserSimulator.usage.mem)
+		#print(self.result.BrowserSimulator.viewfilename)
 		return self.result
-	def get_result(self):
-		return self.result
+	
+	def get_result(self,type):
+		if type=="BL":
+			if (self.result.BlacklistManager==None):
+				return None
+			else:
+				return self.result.BlacklistManager
+		elif type=="SC":
+			if (self.result.SourceCodeHandler==None):
+				return None
+			else:
+				return self.result.SourceCodeHandler
+		elif type=="BS":
+			if (self.result.BrowserSimulator==None):
+				return None
+			else:
+				return self.result.BrowserSimulator
+		else: 
+			return self.result
 
 
 
@@ -97,5 +123,7 @@ def __main__():
 	urlProcess("127.0.0.1")
 
 if __name__ == '__main__':
-    main()	
+    main()
+
+
 				

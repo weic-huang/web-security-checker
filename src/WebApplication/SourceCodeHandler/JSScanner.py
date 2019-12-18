@@ -8,7 +8,7 @@ class JSScanner():
         # check if functions exhibit malicious behavior
 
         result_dict = {}
-        result_dict['hasHardwareAcess'] = self.checkHardwareAccess(functions)
+        result_dict['hasHardwareAccess'] = self.checkHardwareAccess(functions)
         result_dict['hasAutoDownload'] = self.checkAutoDownload(functions)
         result_dict['hasPopUp'] = self.checkPopUp(functions)
         result_dict['hasNotification'] = self.checkNotification(functions)
