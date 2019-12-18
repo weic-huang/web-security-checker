@@ -81,7 +81,11 @@ class Model(object):
 		self.result.SourceCodeHandler = scResult.get_result()
 		self.result.BrowserSimulator = bsResult.get_result()
 		self.result.BlacklistManager = blResult.get_result()
-		#print(self.result.BlacklistManager.maliciousType)
+		print(self.result.BlacklistManager.maliciousType)
+		print(self.result.SourceCodeHandler.isMining)
+		print(self.result.SourceCodeHandler.miningType)
+		print(self.result.SourceCodeHandler.hasAutoDownload)
+		print(self.result.SourceCodeHandler.hasPopUp)
 		return self.result
 	def get_result(self):
 		return self.result
