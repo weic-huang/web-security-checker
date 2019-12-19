@@ -5,6 +5,7 @@ from Blacklist.BlacklistManager import BlacklistManager
 from WebApp.Result import Result
 from queue import Queue
 import threading
+import requests
 import sys
 import re
 
@@ -59,11 +60,16 @@ class Model(object):
 		self.url = url
 		self.result = Result(url)
 	def validURL(self):
-		if re.match(r'^https?:/{2}\w.+$', self.url):
-			self.url = self.url.replace("https", "http", 1)
-			return self.url
-		else:
-		    return ""
+		try:
+			request = requests.get(self.url) 
+			if request.status_code == 200:
+				self.url = self.url.replace("https", "http", 1)
+				return self.url
+			else:
+				self.url = self.url.replace("https", "http", 1)
+				return self.url
+		except:
+			return ""
 
 	def renewModel(self,url):
 		self.url=url
