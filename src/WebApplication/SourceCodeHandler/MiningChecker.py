@@ -12,6 +12,7 @@ class MiningChecker():
 						"miningType": ""}
 
 		DBresult = self.checkBlocklistFromDB()
+		print(DBresult)
 		outputValue["isMining"] = DBresult["isMining"]
 		outputValue["miningType"] = DBresult["miningType"]
 
@@ -28,7 +29,7 @@ class MiningChecker():
 			"miningType" : "Unrecognized"}
 		for path in self.srcPaths:
 			data = models.MininglistDB.objects.filter(url=path)
-			if len(data) != 0:
+			if data:				
 				return {"isMining" : True,
 						"miningType" : "Unrecognized"}
 		return output
