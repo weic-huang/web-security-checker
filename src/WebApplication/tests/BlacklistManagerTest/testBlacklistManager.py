@@ -16,7 +16,7 @@ class BlacklistManagerTest(TestCase):
 		self.bm = BlacklistManager("http://google.com")
 		self.result = self.bm.check()
 		self.assertIsInstance(self.result, BlacklistResult)
-		self.assertEqual(self.result.maliciousType, "SOCIAL_ENGINEERING")
+		self.assertEqual(self.result.maliciousType, "safe URL")
 
 	def testCacheCheck(self):
 		self.bm = BlacklistManager("http://google.com")
