@@ -28,10 +28,12 @@ class BrowserSimulator():
 			stdin=subprocess.PIPE,
 			stdout=subprocess.PIPE,
 			stderr=subprocess.STDOUT)
-		msg = self.proc.stdout.readline()
+		
 		self.getUsage()
 		self.proc.stdin.write(b"done\n")
 		self.proc.stdin.flush()
+
+		msg = self.proc.stdout.readline()
 		try:
 			self.proc.wait()
 			# print('exit with rc = ', self.proc.returncode)
@@ -42,8 +44,7 @@ class BrowserSimulator():
 	def getUsage(self):
 		infoUsage = psutil.Process(self.proc.pid)
 		mem = infoUsage.memory_info().rss / 1024 #kb
-		cpu = infoUsage.cpu_percent(interval=0.1)
-		cpu = 0
+		cpu = infoUsage.cpu_percent(interval=1)
 		self.usage = UsageData(mem, cpu)
 
 class UsageData():
