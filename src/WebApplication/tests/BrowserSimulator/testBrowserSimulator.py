@@ -1,8 +1,8 @@
 import unittest
 import os
-from src.WebApplication.BrowserSimulator.BrowserSimulator import BrowserSimulator
-from src.WebApplication.BrowserSimulator.BrowserSimulator import UsageData
-from src.WebApplication.BrowserSimulator.BrowserSimulator import BrowserSimulatorResult
+from BrowserSimulator.BrowserSimulator import BrowserSimulator
+from BrowserSimulator.BrowserSimulator import UsageData
+from BrowserSimulator.BrowserSimulator import BrowserSimulatorResult
 
 class mockProcess(object):
 	pid = os.getpid()
