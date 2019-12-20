@@ -6,3 +6,4 @@ build/
 src/WebApplication/SCHTest.py
 */.DS_Store
 src/WebApp/static/img/screenshot/*
+WebApp/static/img/screenshot/*
