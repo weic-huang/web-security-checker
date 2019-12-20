@@ -6,10 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from SourceCodeHandler.HtmlScanner import HtmlScanner
 from SourceCodeHandler.JSScanner import JSScanner
 from SourceCodeHandler.MiningChecker import MiningChecker
-try:
-	from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
-except:
-	print("QAQ")
+from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
 
 from urllib.parse import urlparse
 import re
@@ -51,16 +48,16 @@ class SourceCodeHandler():
 		# not to print console message in cmd
 		options.add_argument('log-level=1')
 		driver = webdriver.Chrome(chrome_options=options,executable_path="../../include/chromedriver.exe")
-		# try:
-		driver.get(self.url)
-		soup = BeautifulSoup(driver.page_source, "html.parser")
-		scripts = soup.find_all('script')
-		eles = driver.find_elements_by_xpath('//*')
-		# except:
-			# print("invalid url")
-			# scripts = []
-			# eles = []	
-		
+
+		try:
+			driver.get(self.url)
+			soup = BeautifulSoup(driver.page_source, "html.parser")
+			scripts = soup.find_all('script')
+			eles = driver.find_elements_by_xpath('//*')
+
+		except:
+			scripts = []
+			eles = []
 		
 		srcs = [i.get('src') for i in scripts if i.get('src')]
 		srcs.append(self.url)
