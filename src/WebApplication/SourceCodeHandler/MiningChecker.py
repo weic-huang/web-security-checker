@@ -16,7 +16,7 @@ class MiningChecker():
 		outputValue["miningType"] = DBresult["miningType"]
 
 		scriptResult = self.checkMiningScript()
-		outputValue["isMining"] = scriptResult
+		outputValue["isMining"] = scriptResult | outputValue["isMining"]
 
 				
 		return outputValue
@@ -27,13 +27,10 @@ class MiningChecker():
 		output = {"isMining" : False,
 			"miningType" : "Unrecognized"}
 		for path in self.srcPaths:
-			try:
-				data = models.MininglistDB.objects.get(url=url)
-				if data != None:
-					return {"isMining" : True,
-							"miningType" : "Unrecognized"}
-			except:
-				continue
+			data = models.MininglistDB.objects.filter(url=path)
+			if len(data) != 0:
+				return {"isMining" : True,
+						"miningType" : "Unrecognized"}
 		return output
 
 		

@@ -6,7 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from SourceCodeHandler.HtmlScanner import HtmlScanner
 from SourceCodeHandler.JSScanner import JSScanner
 from SourceCodeHandler.MiningChecker import MiningChecker
-from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
+try:
+	from SourceCodeHandler.SourceCodeHandlerResult import SourceCodeHandlerResult
+except:
+	print("QAQ")
 
 from urllib.parse import urlparse
 import re
@@ -27,6 +30,10 @@ class SourceCodeHandler():
 		self.srcPaths = []
 
 	def call(self):
+		self.sourceCode = ""
+		self.HtmlObject = []
+		self.JSfunctions = []
+		self.srcPaths = []
 		outputData = {}
 		outputData = {**outputData, **self.callHtmlScanner()}
 		outputData = {**outputData, **self.callJSScanner()}
@@ -43,12 +50,20 @@ class SourceCodeHandler():
 		options.add_argument("--headless")
 		# not to print console message in cmd
 		options.add_argument('log-level=1')
-		driver = webdriver.Chrome(chrome_options=options,executable_path="../../include/chromedriver")
+		driver = webdriver.Chrome(chrome_options=options,executable_path="../../include/chromedriver.exe")
+		# try:
 		driver.get(self.url)
-	
 		soup = BeautifulSoup(driver.page_source, "html.parser")
 		scripts = soup.find_all('script')
+		eles = driver.find_elements_by_xpath('//*')
+		# except:
+			# print("invalid url")
+			# scripts = []
+			# eles = []	
+		
+		
 		srcs = [i.get('src') for i in scripts if i.get('src')]
+		srcs.append(self.url)
 
 		#######################################
 		# Get all src path from other website #
@@ -89,7 +104,7 @@ class SourceCodeHandler():
 		# 			with visibility			#
 		#####################################
 		allElements = []
-		eles = driver.find_elements_by_xpath('//*')
+		
 		for ele in eles:
 			try:
 				ss = ele.get_attribute("outerHTML")	
@@ -138,5 +153,8 @@ class SourceCodeHandler():
 
 	def callHtmlScanner(self):
 		HtmlObj = HtmlScanner()
-		result = HtmlObj.checkHiddenObject(self.HtmlObject)
+		if len(self.HtmlObject) == 0:
+			result = False
+		else:
+			result = HtmlObj.checkHiddenObject(self.HtmlObject)
 		return {"hasHiddenObject" : result}
