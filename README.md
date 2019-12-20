@@ -23,9 +23,9 @@ python manage.py loaddata WebApp/fixtures/MininglistDb.json WebApp/fixtures/blac
 python manage.py runserver 
 ``
 
-### Run unit tests
+### Run unit tests (src/WebApplication)
 ``
-python -m unittest discover ./tests/
+python manage.py test 
 ``
 
 This command will run all "**test\***" in tests/
@@ -33,7 +33,7 @@ Be careful that all test files should be modules or packages (including namespac
 That means one need to add "\_\_init\_\_.py" in order to use this command to run your test file.
 
 ``
-python -m unittest tests/SourceCodeHandlerTest/SourceCodeHandlerTest.py
+python manage.py test .\tests\SourceCodeHandlerTest\
 ``
 
 This command can run the specific test file you want.
