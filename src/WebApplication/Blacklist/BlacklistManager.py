@@ -8,9 +8,9 @@ class BlacklistManager():
 
 	def check(self):
 
-		"""result = self.checkCache()
+		result = self.checkCache()
 		if result != "":
-			return result"""
+			return BlacklistResult(result)
 
 		result = self.checkDB()
 		if result == "":
