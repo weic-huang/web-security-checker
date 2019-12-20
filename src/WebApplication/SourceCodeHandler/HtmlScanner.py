@@ -11,5 +11,6 @@ class HtmlScanner():
 
         for e in elements:
             if len(re.search(r'visibility\s*(:|=)(\s|\"|\')*hidden(\s|\"|\')*', e)) != 0:
-                return True
+                if len(re.search(r'display\s*(:|=)(\s|\"|\')*none(\s|\"|\')*', e)) == 0 and ('click' not in e):
+                    return True
         return False

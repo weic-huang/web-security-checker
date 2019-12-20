@@ -36,7 +36,7 @@ class JSScanner():
         # check if the provided functions contain a request for notification permission
 
         for f in functions:
-            if 'Notification.requestPermission' in f:
+            if re.search('push', f, re.IGNORECASE) and re.search('notification', f, re.IGNORECASE):
                 return True
         return False
 
@@ -46,11 +46,17 @@ class JSScanner():
 
         for f in functions:
             # camera and mic
-            for s in re.findall(r'(webkitG|mozG|g)etUserMedia\((.*?)\)', f):
-                if 'video' in s[1]:
+            if re.search(r'(webkitG|mozG|g)etUserMedia\((.*?)\)', f):
+                if 'video' in f:
                     hardware_dict['camera'] = True
-                if 'audio' in s[1]:
+                if 'audio' in f:
                     hardware_dict['microphone'] = True
+
+            if re.search(r'capture\s*=\s*\"camera\"', f):
+                hardware_dict['camera'] = True
+
+            if re.search(r'capture\s*=\s*\"microphone\"', f):
+                hardware_dict['microphone'] = True
 
             # ambient light sensor
             if ('AmbientLightSensor' in f) or ("addEventListener('devicelight'" in f):
