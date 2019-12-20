@@ -20,11 +20,10 @@ class BrowserSimulatorTest(unittest.TestCase):
 		self.s.proc = mockProcess()
 
 		self.s.getUsage()
-		print(self.s.usagedata.cpu)
 
-		self.assertIsInstance(self.s.usagedata, UsageData)
-		self.assertIsInstance(self.s.usagedata.mem, (float,int))
-		self.assertIsInstance(self.s.usagedata.cpu, (float,int))
+		self.assertIsInstance(self.s.usage, UsageData)
+		self.assertIsInstance(self.s.usage.mem, (float,int))
+		self.assertIsInstance(self.s.usage.cpu, (float,int))
 
 
 	def testSimulateManager(self):

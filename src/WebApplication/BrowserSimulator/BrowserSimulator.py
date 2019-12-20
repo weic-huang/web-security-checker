@@ -19,7 +19,7 @@ class BrowserSimulator():
 	def simulateManager(self):
 		self.viewfilename = randomString(10) + ".png"
 		self.simulator()
-		self.result = BrowserSimulatorResult(self.usagedata, self.viewfilename)
+		self.result = BrowserSimulatorResult(self.usage, self.viewfilename)
 		return self.result
 	
 	def simulator(self):
@@ -44,7 +44,7 @@ class BrowserSimulator():
 		mem = infoUsage.memory_info().rss / 1024 #kb
 		cpu = infoUsage.cpu_percent(interval=0.1)
 		cpu = 0
-		self.usagedata = UsageData(mem, cpu)
+		self.usage = UsageData(mem, cpu)
 
 class UsageData():
 	def __init__(self, mem, cpu):
@@ -59,7 +59,6 @@ class BrowserSimulatorResult():
 if __name__ == "__main__":
 	s = BrowserSimulator("https://www.mobile01.com/topicdetail.php?f=37&t=5886669")
 	s.simulateManager()
-	result = s.getResult()
-	print(result.viewfilename)
-	print(result.usagedata.mem)
-	print(result.usagedata.cpu)
+	print(s.result.viewfilename)
+	print(s.result.usage.mem)
+	print(s.result.usage.cpu)
