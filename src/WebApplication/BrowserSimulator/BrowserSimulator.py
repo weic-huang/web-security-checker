@@ -24,7 +24,7 @@ class BrowserSimulator():
 	
 	def simulator(self):
 		self.proc = subprocess.Popen(
-			['python3', 'BrowserSimulator/Simulate.py', self.url, self.viewfilename],
+			['python', 'BrowserSimulator/Simulate.py', self.url, self.viewfilename],
 			stdin=subprocess.PIPE,
 			stdout=subprocess.PIPE,
 			stderr=subprocess.STDOUT)

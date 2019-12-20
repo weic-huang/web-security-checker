@@ -12,7 +12,6 @@ class MiningChecker():
 						"miningType": ""}
 
 		DBresult = self.checkBlocklistFromDB()
-		print(DBresult)
 		outputValue["isMining"] = DBresult["isMining"]
 		outputValue["miningType"] = DBresult["miningType"]
 

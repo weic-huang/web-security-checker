@@ -6,7 +6,7 @@ url = sys.argv[1]
 viewfilename = sys.argv[2]
 options = Options()
 options.add_argument('--headless')
-browser = webdriver.Chrome(options=options,executable_path="../../include/chromedriver")
+browser = webdriver.Chrome(options=options,executable_path="../../include/chromedriver.exe")
 browser.get(url)
 input()
 
