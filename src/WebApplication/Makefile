@@ -1,8 +1,13 @@
-python=python
-pip=pip
+python=python3
+pip=pip3
+
+unittest:
+# 	$(python) manage.py test tests/BrowserSimulatorTest/
+# 	$(python) manage.py test tests/SourceCodeHandlerTest/
+	$(python) manage.py test tests/BlacklistManagerTest/
 
 test:
-	$(python) -m unittest discover ./tests/
+	$(python) manage.py test tests/CasesTest/
 
 build:
 	$(pip) install -r ../../requirements.txt
