@@ -31,10 +31,13 @@ class SourceCodeHandler():
 		self.HtmlObject = []
 		self.JSfunctions = []
 		self.srcPaths = []
+		print("#call")
+		self.parse()
 		outputData = {}
 		outputData = {**outputData, **self.callHtmlScanner()}
 		outputData = {**outputData, **self.callJSScanner()}
 		outputData = {**outputData, **self.callMiningChecker()}
+		print(outputData)
 		output = SourceCodeHandlerResult(outputData)
 		return output
 
@@ -139,6 +142,8 @@ class SourceCodeHandler():
 
 	def callMiningChecker(self):
 		MinigObj = MiningChecker(self.JSfunctions, self.srcPaths)
+		print("check callMiningChecker") 
+		print(self.srcPaths) 
 		result = MinigObj.call()
 		return result
 
