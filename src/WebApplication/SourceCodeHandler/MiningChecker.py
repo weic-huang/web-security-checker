@@ -27,8 +27,8 @@ class MiningChecker():
 		output = {"isMining" : False,
 			"miningType" : "Unrecognized"}
 		for path in self.srcPaths:
-			print("path") 
-			print(path) 
+			# print("path") 
+			# print(path) 
 			data = models.MininglistDB.objects.filter(url=path)
 			if data:				
 				return {"isMining" : True,
