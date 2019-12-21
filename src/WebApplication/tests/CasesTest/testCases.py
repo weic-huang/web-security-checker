@@ -17,9 +17,9 @@ class CasesTest(TestCase):
 		self.assertEqual(r.SourceCodeHandler.hasPopUp, False)
 		self.assertEqual(r.SourceCodeHandler.hasHiddenObject, False)
 		self.assertEqual(r.SourceCodeHandler.hasNotification, False)
-		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, False)
+		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, {})
 
-		self.assertLessEqual(r.BrowserSimulator.usage.mem, 200)
+		self.assertLessEqual(r.BrowserSimulator.usage.mem, 2000)
 		self.assertNotEqual(r.BrowserSimulator.viewfilename, "")
 
 	def testRC1_4(self):
@@ -36,13 +36,13 @@ class CasesTest(TestCase):
 		self.assertEqual(r.SourceCodeHandler.hasPopUp, False)
 		self.assertEqual(r.SourceCodeHandler.hasHiddenObject, False)
 		self.assertEqual(r.SourceCodeHandler.hasNotification, False)
-		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, True)
+		self.assertNotEqual(r.SourceCodeHandler.hasHardwareAccess, {})
 
-		self.assertLessEqual(r.BrowserSimulator.usage.mem, 200)
+		self.assertLessEqual(r.BrowserSimulator.usage.mem, 2000)
 		self.assertNotEqual(r.BrowserSimulator.viewfilename, "")
 
 	def testRC1_5(self):
-		# Scenario 1-5 - Successful enter a URL that accesses hardware and get result
+		# Scenario 1-5 - Successful enter a URL that has notification access and get result
 		# Return valid result (find notification access)
 		M = Model("https://kkplay3c.net/141126-2/")
 		r = M.urlProcess("https://kkplay3c.net/141126-2/")
@@ -55,13 +55,13 @@ class CasesTest(TestCase):
 		self.assertEqual(r.SourceCodeHandler.hasPopUp, False)
 		self.assertEqual(r.SourceCodeHandler.hasHiddenObject, False)
 		self.assertEqual(r.SourceCodeHandler.hasNotification, True)
-		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, False)
+		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, {})
 
-		self.assertLessEqual(r.BrowserSimulator.usage.mem, 200)
+		self.assertLessEqual(r.BrowserSimulator.usage.mem, 2000)
 		self.assertNotEqual(r.BrowserSimulator.viewfilename, "")
 
 	def testRC1_6(self):
-		# Scenario 1-6 - Successful enter a URL that accesses hardware and get result
+		# Scenario 1-6 - Successful enter a URL that has hidden objects and get result
 		# Return valid result (find hidden objects)
 		M = Model("https://www.google.com/")
 		r = M.urlProcess("https://www.google.com/")
@@ -74,26 +74,28 @@ class CasesTest(TestCase):
 		self.assertEqual(r.SourceCodeHandler.hasPopUp, False)
 		self.assertEqual(r.SourceCodeHandler.hasHiddenObject, True)
 		self.assertEqual(r.SourceCodeHandler.hasNotification, False)
-		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, False)
+		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, {})
 
+		self.assertLessEqual(r.BrowserSimulator.usage.mem, 2000)
 		self.assertNotEqual(r.BrowserSimulator.viewfilename, "")
 
 	def testRC1_7(self):
-		# Scenario 1-7 - Successful enter a URL that accesses hardware and get result
-		# Return valid result (find hidden objects)
-		M = Model("https://www.google.com/")
-		r = M.urlProcess("https://www.google.com/")
+		# Scenario 1-7 - Successful enter a URL that has mining script and get result
+		# Return valid result (find mining)
+		M = Model("http://dfcwecvmjtdj.com")
+		r = M.urlProcess("http://dfcwecvmjtdj.com")
 
 		self.assertEqual(r.BlacklistManager.maliciousType, 'safe URL')
 
-		self.assertEqual(r.SourceCodeHandler.isMining, False)
-		self.assertEqual(r.SourceCodeHandler.miningType, 'Unrecognized')
+		self.assertEqual(r.SourceCodeHandler.isMining, True)
+		self.assertEqual(r.SourceCodeHandler.miningType, 'Unrecognized')#TODO
 		self.assertEqual(r.SourceCodeHandler.hasAutoDownload, False)
 		self.assertEqual(r.SourceCodeHandler.hasPopUp, False)
-		self.assertEqual(r.SourceCodeHandler.hasHiddenObject, True)
+		self.assertEqual(r.SourceCodeHandler.hasHiddenObject, False)
 		self.assertEqual(r.SourceCodeHandler.hasNotification, False)
-		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, False)
+		self.assertEqual(r.SourceCodeHandler.hasHardwareAccess, {})
 
+		self.assertLessEqual(r.BrowserSimulator.usage.mem, 2000)
 		self.assertNotEqual(r.BrowserSimulator.viewfilename, "")
 
 	def testRC1_8(self):
@@ -126,7 +128,7 @@ class CasesTest(TestCase):
 		M = Model("https://www.google.com/")
 		r = M.validURL()
 
-		self.assertEqual(r, "")
+		self.assertEqual(r, "http://www.google.com/")
 	
 	def testRC4(self):
 		# Scenario 4 - third party server unavailable
