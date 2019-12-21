@@ -33,11 +33,12 @@ class SourceCodeHandler():
 		self.srcPaths = []
 		# print("#call")
 		self.parse()
+		self.srcPaths.append(self.url)
 		outputData = {}
 		outputData = {**outputData, **self.callHtmlScanner()}
 		outputData = {**outputData, **self.callJSScanner()}
 		outputData = {**outputData, **self.callMiningChecker()}
-		print(outputData)
+		# print(outputData)
 		output = SourceCodeHandlerResult(outputData)
 		return output
 
@@ -63,7 +64,8 @@ class SourceCodeHandler():
 			eles = []
 		
 		srcs = [i.get('src') for i in scripts if i.get('src')]
-		srcs.append(self.url)
+		srcs.append(urlparse(self.url).netloc)
+		# print(urlparse(self.url).netloc)
 
 		#######################################
 		# Get all src path from other website #
@@ -142,8 +144,8 @@ class SourceCodeHandler():
 
 	def callMiningChecker(self):
 		MinigObj = MiningChecker(self.JSfunctions, self.srcPaths)
-		print("check callMiningChecker") 
-		print(self.srcPaths) 
+		# print("check callMiningChecker") 
+		# print(self.srcPaths) 
 		result = MinigObj.call()
 		return result
 
