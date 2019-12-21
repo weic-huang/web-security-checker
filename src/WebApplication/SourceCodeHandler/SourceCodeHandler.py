@@ -31,7 +31,7 @@ class SourceCodeHandler():
 		self.HtmlObject = []
 		self.JSfunctions = []
 		self.srcPaths = []
-		print("#call")
+		# print("#call")
 		self.parse()
 		outputData = {}
 		outputData = {**outputData, **self.callHtmlScanner()}
