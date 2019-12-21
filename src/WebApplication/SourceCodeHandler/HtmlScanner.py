@@ -13,6 +13,6 @@ class HtmlScanner():
             a = re.search(r'visibility\s*(:|=)(\s|\"|\')*hidden(\s|\"|\')*', e)
             if a != None:
                 b = re.search(r'display\s*(:|=)(\s|\"|\')*none(\s|\"|\')*', e)
-                if b != None or ('click' in e):
+                if b == None and ('click' in e):
                     return True
         return False
