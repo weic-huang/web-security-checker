@@ -83,7 +83,7 @@ var x_icon= "<img src=\"/static/img/x.png\" alt=\"safe\" width=\"20px\" height=\
                
                 }
                 else if (i=="mem"){
-                  if (data[i]>1000)
+                  if (data[i]>200)
                     document.getElementById("BS_"+i+"_icon").innerHTML = warning_icon;
                   else
                     document.getElementById("BS_"+i+"_icon").innerHTML = safe_icon;
