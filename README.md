@@ -24,11 +24,12 @@ python manage.py runserver
 ``
 
 ### Run unit tests (src/WebApplication)
-``
-python manage.py test .\tests\SourceCodeHandlerTest\
-python manage.py test .\tests\BlacklistManagerTest\
-python manage.py test .\tests\BrowserSimulatorTest\
-``
+```
+python manage.py test .\tests\SourceCodeHandlerTest\  
+python manage.py test .\tests\BlacklistManagerTest\  
+python manage.py test .\tests\BrowserSimulatorTest\  
+```
+
 
 
 
