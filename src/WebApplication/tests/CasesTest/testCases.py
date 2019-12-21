@@ -96,6 +96,22 @@ class CasesTest(TestCase):
 
 		self.assertNotEqual(r.BrowserSimulator.viewfilename, "")
 
+	def testRC1_8(self):
+		# Scenario 1-8 -  URL is not found in cache
+		# Check in the database and return valid result
+		M = Model("http://nigooglekbgo.xyz/uk/google22/5230/")
+		r = M.urlProcess("http://nigooglekbgo.xyz/uk/google22/5230/")
+
+		self.assertEqual(r.BlacklistManager.maliciousType, 'SOCIAL_ENGINEERING')
+
+	def testRC1_9(self):
+		# Scenario 1-9 - URL is not found in cache and database
+		# Check with the third party server and return valid result
+		M = Model("https://www.google.com/")
+		r = M.urlProcess("https://www.google.com/")
+
+		self.assertEqual(r.BlacklistManager.maliciousType, 'safe URL')
+
 	def testRC2(self):
 		# Scenario 2 - Invalid URL
 		# Display error message
